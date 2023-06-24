@@ -13,10 +13,9 @@ struct Response {
 
 #[post("/")]
 async fn index(data: web::Json<Request>) -> impl Responder {
-    let mut res = Response {
-        hash: String::from("Default Response")
+    let res: Response = Response {
+        hash: digest(data.text.clone())
     };
-    res.hash = digest(data.text.clone());
     HttpResponse::Ok().json(res)
 }
 
